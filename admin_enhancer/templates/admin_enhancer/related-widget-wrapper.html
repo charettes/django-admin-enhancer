@@ -1,0 +1,17 @@
+{% load static %}
+{{ widget }}
+{% if can_change_related %}
+	<a class="related-widget-wrapper-link related-widget-wrapper-change-link" id="edit_id_{{ name }}" data-href-template="{{ change_url_template }}"{% if change_url %} href="{{ change_url }}"{% endif %} title="{{ change_help_text }}">
+		<img src="{% static 'admin/img/icon_changelink.gif' %}" width="10" height="10" alt="{{ change_help_text }}"/>
+	</a>
+{% endif %}
+{% if can_add_related %}
+	<a class="related-widget-wrapper-link related-widget-wrapper-add-link add-related" href="{{ add_url }}" id="add_id_{{ name }}"  title="{{ add_help_text }}">
+		<img src="{% static 'admin/img/icon_addlink.gif' %}" width="10" height="10" alt="{{ add_help_text }}"/>
+	</a>
+{% endif %}
+{% if can_delete_related %}
+	<a class="related-widget-wrapper-link related-widget-wrapper-delete-link" id="delete_id_{{ name }}" data-href-template="{{ delete_url_template }}"{% if delete_url %} href="{{ delete_url }}"{% endif %} title="{{ delete_help_text }}">
+		<img src="{% static 'admin/img/icon_deletelink.gif' %}" width="10" height="10" alt="{{ delete_help_text }}"/>
+	</a>
+{% endif %}
