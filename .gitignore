@@ -6,4 +6,5 @@ syntax:glob
 .pydevproject
 .settings/*
 .DS_Store
-
+dist/*
+django_admin_enhancer.egg-info/*
