@@ -1,2 +1,5 @@
 include README.md
 include LICENSE
+recursive-include admin_enhancer/locale *
+recursive-include admin_enhancer/static *
+recursive-include admin_enhancer/templates *
