@@ -4,6 +4,8 @@
 
 A simple django app that provides change and deletion links to FK fields in the admin while ticket [#13163](https://code.djangoproject.com/ticket/13163) and [#13165](https://code.djangoproject.com/ticket/13165) are not fixed.
 
+Note that this apps works with django >= 1.4 only.
+
 ## Display
 
 ![selected](https://dl.dropbox.com/u/2759157/selected.png)
