@@ -1,4 +1,4 @@
-{% load static %}
+{% load static from staticfiles %}
 {{ widget }}
 {% if can_change_related %}
 	<a class="related-widget-wrapper-link related-widget-wrapper-change-link" id="edit_id_{{ name }}" data-href-template="{{ change_url_template }}"{% if change_url %} href="{{ change_url }}"{% endif %} title="{{ change_help_text }}">
