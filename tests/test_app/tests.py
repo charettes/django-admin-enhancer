@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import time
 from contextlib import contextmanager
 
 from django.contrib.admin.tests import AdminSeleniumWebDriverTestCase
@@ -28,6 +29,7 @@ class InteractionTest(AdminSeleniumWebDriverTestCase):
             self.selenium.switch_to_window(new_window_handle)
             yield new_window_handle
         finally:
+            time.sleep(1)
             self.selenium.switch_to_window(initial_window_handle)
     
     def test_widget_interactions(self):
