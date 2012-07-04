@@ -1,6 +1,5 @@
 
 from django.contrib import admin
-from django.forms.widgets import SelectMultiple
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 
@@ -12,8 +11,7 @@ class EnhancedAdminMixin(object):
     def formfield_for_dbfield(self, db_field, **kwargs):
         formfield = super(EnhancedAdminMixin, self).formfield_for_dbfield(db_field, **kwargs)
         if (formfield and
-            isinstance(formfield.widget, admin.widgets.RelatedFieldWidgetWrapper) and
-            not isinstance(formfield.widget.widget, SelectMultiple)):
+            isinstance(formfield.widget, admin.widgets.RelatedFieldWidgetWrapper)):
             request = kwargs.pop('request', None)
             related_modeladmin = self.admin_site._registry.get(db_field.rel.to)
             if related_modeladmin:
