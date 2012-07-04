@@ -16,6 +16,7 @@ class CharacterInline(enhanced_admin.EnhancedAdminMixin,
 
 class BookAdmin(EnhancedModelAdmin):
     inlines = (CharacterInline,)
+    filter_horizontal = ('themes',)
 
 admin.site.register(Author, EnhancedModelAdmin)
 admin.site.register(Book, BookAdmin)

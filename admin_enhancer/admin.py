@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 
-from .widgets import RelatedFieldWidgetWrapper
+from .widgets import FilteredSelectMultipleWrapper, RelatedFieldWidgetWrapper
 
 
 class EnhancedAdminMixin(object):
@@ -17,9 +17,11 @@ class EnhancedAdminMixin(object):
             if related_modeladmin:
                 can_change_related = related_modeladmin.has_change_permission(request)
                 can_delete_related = related_modeladmin.has_delete_permission(request)
-                widget = RelatedFieldWidgetWrapper.from_contrib_wrapper(formfield.widget,
-                                                                        can_change_related,
-                                                                        can_delete_related)
+                if isinstance(formfield.widget.widget, admin.widgets.FilteredSelectMultiple):
+                    formfield.widget.widget = FilteredSelectMultipleWrapper.wrap(formfield.widget.widget)
+                widget = RelatedFieldWidgetWrapper.wrap(formfield.widget,
+                                                        can_change_related,
+                                                        can_delete_related)
                 formfield.widget = widget
         return formfield
 

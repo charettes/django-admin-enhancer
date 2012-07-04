@@ -1,5 +1,6 @@
 
-from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
+from django.contrib.admin.widgets import (FilteredSelectMultiple,
+    RelatedFieldWidgetWrapper)
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -20,7 +21,7 @@ class RelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
         super(RelatedFieldWidgetWrapper, self).__init__(*args, **kwargs)
     
     @classmethod
-    def from_contrib_wrapper(cls, wrapper, can_change_related, can_delete_related):
+    def wrap(cls, wrapper, can_change_related, can_delete_related):
         return cls(wrapper.widget, wrapper.rel, wrapper.admin_site,
                    can_add_related=wrapper.can_add_related,
                    can_change_related=can_change_related,
@@ -58,3 +59,13 @@ class RelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
         
         return mark_safe(render_to_string('admin_enhancer/related-widget-wrapper.html', context))
 
+class FilteredSelectMultipleWrapper(FilteredSelectMultiple):
+
+    @classmethod
+    def wrap(cls, widget):
+        return cls(widget.verbose_name, widget.is_stacked,
+                   widget.attrs, widget.choices)
+
+    def render(self, *args, **kwargs):
+        output = super(FilteredSelectMultipleWrapper, self).render(*args, **kwargs)
+        return mark_safe("<div class=\"related-widget-wrapper\">%s</div>" % output)
