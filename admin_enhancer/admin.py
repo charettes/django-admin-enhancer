@@ -8,9 +8,11 @@ from .widgets import FilteredSelectMultipleWrapper, RelatedFieldWidgetWrapper
 
 class EnhancedAdminMixin(object):
 
+    enhance_exclude = ()
+
     def formfield_for_dbfield(self, db_field, **kwargs):
         formfield = super(EnhancedAdminMixin, self).formfield_for_dbfield(db_field, **kwargs)
-        if (formfield and
+        if (formfield and db_field.name not in self.enhance_exclude and
             isinstance(formfield.widget, admin.widgets.RelatedFieldWidgetWrapper)):
             request = kwargs.pop('request', None)
             related_modeladmin = self.admin_site._registry.get(db_field.rel.to)
