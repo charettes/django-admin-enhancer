@@ -27,6 +27,14 @@ class EnhancedAdminMixin(object):
                 formfield.widget = widget
         return formfield
 
+    def delete_view(self, request, object_id, extra_context=None):
+        """ Sets is_popup context variable to hide admin header
+        """
+        if not extra_context:
+            extra_context = {}
+        extra_context['is_popup'] = request.REQUEST.get('_popup', 0)
+        return super(EnhancedAdminMixin, self).delete_view(request, object_id, extra_context)
+
 class EnhancedModelAdminMixin(EnhancedAdminMixin):
     
     def response_change(self, request, obj):
