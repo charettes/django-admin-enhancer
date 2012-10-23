@@ -5,8 +5,12 @@ python:
   - 2.7
   
 env:
-  - DJANGO="django==1.4"
+  - DJANGO="django>=1.4,<1.5"
   - DJANGO="https://github.com/django/django/tarball/master"
+
+matrix:
+  allow_failures:
+    - env: DJANGO="https://github.com/django/django/tarball/master"
 
 install:
   - pip install $DJANGO selenium --use-mirrors
@@ -16,5 +20,4 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
 
 script:
-  - cd tests
-  - python manage.py test test_app
+  - python runtests.py
