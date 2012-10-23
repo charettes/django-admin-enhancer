@@ -1,4 +1,3 @@
-
 from django.contrib.admin.widgets import (FilteredSelectMultiple,
     RelatedFieldWidgetWrapper)
 from django.core.urlresolvers import reverse
@@ -31,7 +30,9 @@ class RelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
         return reverse("admin:%s_%s_%s" % (info + (action,)),
                        current_app=self.admin_site.name, args=args)
     
-    def render(self, name, value, attrs={}, *args, **kwargs):
+    def render(self, name, value, attrs=None, *args, **kwargs):
+        if attrs is None:
+            attrs = {}
         rel_to = self.rel.to
         info = (rel_to._meta.app_label, rel_to._meta.object_name.lower())
         self.widget.choices = self.choices

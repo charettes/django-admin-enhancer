@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -7,10 +6,13 @@ from .widgets import FilteredSelectMultipleWrapper, RelatedFieldWidgetWrapper
 
 
 class EnhancedAdminMixin(object):
+    enhance_exclude = ()
+    filtered_multiple_wrapper = FilteredSelectMultipleWrapper
+    related_widget_wrapper = RelatedFieldWidgetWrapper
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         formfield = super(EnhancedAdminMixin, self).formfield_for_dbfield(db_field, **kwargs)
-        if (formfield and
+        if (formfield and db_field.name not in self.enhance_exclude and
             isinstance(formfield.widget, admin.widgets.RelatedFieldWidgetWrapper)):
             request = kwargs.pop('request', None)
             related_modeladmin = self.admin_site._registry.get(db_field.rel.to)
@@ -18,10 +20,10 @@ class EnhancedAdminMixin(object):
                 can_change_related = related_modeladmin.has_change_permission(request)
                 can_delete_related = related_modeladmin.has_delete_permission(request)
                 if isinstance(formfield.widget.widget, admin.widgets.FilteredSelectMultiple):
-                    formfield.widget.widget = FilteredSelectMultipleWrapper.wrap(formfield.widget.widget)
-                widget = RelatedFieldWidgetWrapper.wrap(formfield.widget,
-                                                        can_change_related,
-                                                        can_delete_related)
+                    formfield.widget.widget = self.filtered_multiple_wrapper.wrap(formfield.widget.widget)
+                widget = self.related_widget_wrapper.wrap(formfield.widget,
+                                                          can_change_related,
+                                                          can_delete_related)
                 formfield.widget = widget
         return formfield
 
