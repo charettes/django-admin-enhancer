@@ -1,23 +1,19 @@
 from __future__ import unicode_literals
-
-import time
 from contextlib import contextmanager
+import time
 
 from django.contrib.admin.tests import AdminSeleniumWebDriverTestCase
 from django.core.urlresolvers import reverse
 
 
 class InteractionTest(AdminSeleniumWebDriverTestCase):
-    
     fixtures = ('admin-users.json',)
-    
+
     def wait_for_popup(self, name):
         def popup_is_loaded(driver):
-            print driver.current_window_handle
-            print driver.window_handles
             return driver.current_window_handle == name
         self.wait_until(popup_is_loaded)
-    
+
     @contextmanager
     def handle_popup(self, trigger):
         initial_window_handle = self.selenium.current_window_handle
@@ -31,20 +27,20 @@ class InteractionTest(AdminSeleniumWebDriverTestCase):
         finally:
             time.sleep(1)
             self.selenium.switch_to_window(initial_window_handle)
-    
+
     def test_widget_interactions(self):
         self.admin_login('super', 'secret')
         driver = self.selenium
-        driver.get("%s%s" % (self.live_server_url, reverse('admin:test_app_book_add')))
-        
+        driver.get("%s%s" % (self.live_server_url, reverse('admin:tests_book_add')))
+
         author_select = driver.find_element_by_id('id_author')
         edit_author_btn = driver.find_element_by_id('edit_id_author')
         add_author_btn = driver.find_element_by_id('add_id_author')
         delete_author_btn = driver.find_element_by_id('delete_id_author')
-        
+
         self.assertIsNone(edit_author_btn.get_attribute('href'))
         self.assertIsNone(delete_author_btn.get_attribute('href'))
-        
+
         def author_options():
             author_options = author_select.find_elements_by_tag_name('option')
             options_label = []
@@ -55,7 +51,7 @@ class InteractionTest(AdminSeleniumWebDriverTestCase):
                 if option.get_attribute('selected'):
                     selected_option_label = label
             return selected_option_label, options_label
-        
+
         def interact(button, name):
             with self.handle_popup(button.click):
                 driver.find_element_by_id('id_name').clear()
@@ -64,20 +60,20 @@ class InteractionTest(AdminSeleniumWebDriverTestCase):
             selected_option_label, options_label = author_options()
             self.assertEqual(['---------', name], options_label)
             self.assertEqual(name, selected_option_label)
-        
+
         interact(add_author_btn, 'David Abraham')
-        
+
         self.assertIsNotNone(edit_author_btn.get_attribute('href'))
         self.assertIsNotNone(delete_author_btn.get_attribute('href'))
-        
+
         interact(edit_author_btn, 'David Abram')
-        
+
         with self.handle_popup(delete_author_btn.click):
             driver.find_element_by_css_selector('input[type="submit"]').click()
             
         selected_option_label, options_label = author_options()
         self.assertEqual(['---------'], options_label)
         self.assertEqual('---------', selected_option_label)
-        
+
         self.assertIsNone(edit_author_btn.get_attribute('href'))
         self.assertIsNone(delete_author_btn.get_attribute('href'))

@@ -21,4 +21,4 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
 
 script:
-  - python runtests.py
+  - django-admin.py test admin_enhancer --settings=test_settings --pythonpath=`pwd`

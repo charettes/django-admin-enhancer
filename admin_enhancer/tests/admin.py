@@ -1,7 +1,6 @@
-
 from django.contrib import admin
 
-from admin_enhancer import admin as enhanced_admin
+from .. import admin as enhanced_admin
 
 from .models import Author, Book, Character, Theme
 
@@ -17,6 +16,7 @@ class CharacterInline(enhanced_admin.EnhancedAdminMixin,
 class BookAdmin(EnhancedModelAdmin):
     inlines = (CharacterInline,)
     filter_horizontal = ('themes',)
+
 
 admin.site.register(Author, EnhancedModelAdmin)
 admin.site.register(Book, BookAdmin)
