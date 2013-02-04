@@ -6,14 +6,15 @@ python:
   
 env:
   - DJANGO="django>=1.4,<1.5"
-  - DJANGO="https://github.com/django/django/tarball/master"
+  - DJANGO="https://github.com/django/django/archive/stable/1.5.x.tar.gz"
+  - DJANGO="https://github.com/django/django/archive/master.tar.gz"
 
 matrix:
   allow_failures:
-    - env: DJANGO="https://github.com/django/django/tarball/master"
+    - env: DJANGO="https://github.com/django/django/archive/master.tar.gz"
 
 install:
-  - pip install $DJANGO selenium --use-mirrors
+  - pip install $DJANGO selenium -q --use-mirrors
 
 before_script:
   - "export DISPLAY=:99.0"
