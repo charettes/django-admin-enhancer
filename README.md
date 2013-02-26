@@ -20,13 +20,14 @@ Note that this apps works with django >= 1.4 only.
 First, add `'admin_enhancer'` to your `INSTALLED_APPS` to avoid getting
 `TemplateDoesNotExist` errors.
 
-Make sure to mix `admin_enhancer.EnhancedModelAdminMixin` when dealing with
+Make sure to mix `EnhancedModelAdminMixin` when dealing with
 `django.contrib.admin.ModelAdmin` subclasses and
-`admin_enhancer.EnhancedAdminMixin` when dealing with
+`EnhancedAdminMixin` when dealing with
 `django.contrib.admin.InlineModelAdmin` at both ends of the relationship.
+The mixins are located at `admin_enhancer.admin`.
 
 If edition and deletion controls appears but the popup is not closed nor is the
 select box updated your `ModelAdmin` subclass referenced by the field in
-question is probably not mixed with `admin_enhancer.EnhancedModelAdminMixin`.
+question is probably not mixed with `EnhancedModelAdminMixin`.
 
 For some examples take a look [here](https://github.com/charettes/django-admin-enhancer/blob/master/tests/test_app/admin.py).
