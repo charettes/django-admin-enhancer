@@ -54,6 +54,7 @@ class InteractionTest(AdminSeleniumWebDriverTestCase):
 
         def interact(button, name):
             with self.handle_popup(button.click):
+                driver.implicitly_wait(1)
                 driver.find_element_by_id('id_name').clear()
                 driver.find_element_by_id('id_name').send_keys(name)
                 driver.find_element_by_name('_save').click()
