@@ -22,8 +22,8 @@ install:
 
 before_script:
   - "export DISPLAY=:99.0"
-  - "DJANGO_SELENIUM_TESTS=1"
+  - "export DJANGO_SELENIUM_TESTS=1"
   - "sh -e /etc/init.d/xvfb start"
 
 script:
-  - django-admin.py test admin_enhancer --settings=test_settings --pythonpath=`pwd`
+  - django-admin.py test admin_enhancer --settings=test_settings --pythonpath=`pwd` -v2
