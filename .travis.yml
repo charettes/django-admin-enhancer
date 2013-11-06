@@ -6,7 +6,8 @@ python:
   
 env:
   - DJANGO="django>=1.4,<1.5"
-  - DJANGO="https://github.com/django/django/archive/stable/1.5.x.tar.gz"
+  - DJANGO="django>=1.5,<1.6"
+  - DJANGO="django>=1.6,<1.7"
   - DJANGO="https://github.com/django/django/archive/master.tar.gz"
 
 matrix:
