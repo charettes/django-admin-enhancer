@@ -37,7 +37,7 @@ class RelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
         info = (rel_to._meta.app_label, rel_to._meta.object_name.lower())
         self.widget.choices = self.choices
         attrs['class'] = ' '.join((attrs.get('class', ''), 'related-widget-wrapper'))
-        context = {'widget': self.widget.render(name, value, attrs, *args, **kwargs),
+        context = {'widget': self.widget.render(name, value, attrs=attrs, *args, **kwargs),
                    'name': name,
                    'can_change_related': self.can_change_related,
                    'can_add_related': self.can_add_related,
