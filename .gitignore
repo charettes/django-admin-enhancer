@@ -8,3 +8,4 @@ syntax:glob
 .DS_Store
 dist/*
 django_admin_enhancer.egg-info/*
+.coverage

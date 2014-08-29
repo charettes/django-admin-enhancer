@@ -1,0 +1,4 @@
+[run]
+source = admin_enhancer
+branch = True
+omit = admin_enhancer/*tests*
