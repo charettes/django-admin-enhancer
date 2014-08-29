@@ -1,7 +1,6 @@
 # django-admin-enhancer
 
 [![Build Status](https://travis-ci.org/charettes/django-admin-enhancer.svg?branch=master)](https://travis-ci.org/charettes/django-admin-enhancer)
-
 [![Coverage Status](https://coveralls.io/repos/charettes/django-admin-enhancer/badge.png)](https://coveralls.io/r/charettes/django-admin-enhancer)
 
 ## Overview
