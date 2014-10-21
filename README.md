@@ -20,7 +20,12 @@ Note that this apps works with django >= 1.4 only.
 [Video displaying interaction with the widget](https://www.youtube.com/watch?v=H4xqku-BPBU)
 
 ## Usage
-First, add `'admin_enhancer'` to your `INSTALLED_APPS` to avoid getting
+
+The recommended way to install the Debug Toolbar is via [pip](http://www.pip-installer.org/):
+
+    $ pip install django-admin-enhancer
+
+Add `'admin_enhancer'` to your `INSTALLED_APPS` to avoid getting
 `TemplateDoesNotExist` errors.
 
 Make sure to mix `EnhancedModelAdminMixin` when dealing with
