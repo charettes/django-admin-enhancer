@@ -21,7 +21,7 @@ Note that this apps works with django >= 1.4 only.
 
 ## Usage
 
-The recommended way to install the Debug Toolbar is via [pip](http://www.pip-installer.org/):
+The recommended way to install ``django-admin-enhancer`` is via [pip](http://www.pip-installer.org/):
 
     $ pip install django-admin-enhancer
 
