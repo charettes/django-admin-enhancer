@@ -3,19 +3,24 @@ language: python
 python:
   - 2.6
   - 2.7
-  
+  - 3.2
+  - 3.3
+  - 3.4
+
 env:
   - DJANGO="django>=1.4,<1.5"
   - DJANGO="django>=1.5,<1.6"
   - DJANGO="django>=1.6,<1.7"
-  - DJANGO="https://github.com/django/django/archive/master.tar.gz"
+  - DJANGO="django>=1.7,<1.8"
 
 matrix:
   exclude:
     - python: 2.6
-      env: DJANGO="https://github.com/django/django/archive/master.tar.gz"
+      env: DJANGO="django>=1.7,<1.8"
   allow_failures:
-    - env: DJANGO="https://github.com/django/django/archive/master.tar.gz"
+    - python: 3.2
+    - python: 3.3
+    - python: 3.4
 
 install:
   - pip install $DJANGO selenium coveralls
