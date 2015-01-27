@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.contrib import admin
 
 from .. import admin as enhanced_admin
@@ -9,9 +11,11 @@ class EnhancedModelAdmin(enhanced_admin.EnhancedModelAdminMixin,
                          admin.ModelAdmin):
     pass
 
+
 class CharacterInline(enhanced_admin.EnhancedAdminMixin,
                       admin.TabularInline):
     model = Character
+
 
 class BookAdmin(EnhancedModelAdmin):
     inlines = (CharacterInline,)

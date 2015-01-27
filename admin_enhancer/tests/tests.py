@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 from contextlib import contextmanager
 import time
 
-from django.contrib.auth.models import User
 from django.contrib.admin.tests import AdminSeleniumWebDriverTestCase
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 

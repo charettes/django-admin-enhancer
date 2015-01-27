@@ -1,10 +1,11 @@
+from __future__ import unicode_literals
+
+from django.conf.urls import include, url
 from django.contrib import admin
-from django.conf.urls import patterns, include, url
 
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Uncomment the next line to enable the admin:
+urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-)
+]
