@@ -17,8 +17,6 @@ Note that this apps works with django >= 1.4 only.
 
 ![selected](https://dl.dropbox.com/u/2759157/empty.png)
 
-[Video displaying interaction with the widget](https://www.youtube.com/watch?v=H4xqku-BPBU)
-
 ## Usage
 
 The recommended way to install ``django-admin-enhancer`` is via [pip](http://www.pip-installer.org/):
