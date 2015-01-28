@@ -38,6 +38,7 @@ class InteractionTest(AdminSeleniumWebDriverTestCase):
     def test_widget_interactions(self):
         self.admin_login('super', 'secret')
         driver = self.selenium
+        driver.set_page_load_timeout(10)
         driver.get("%s%s" % (self.live_server_url, reverse('admin:tests_book_add')))
 
         author_select = driver.find_element_by_id('id_author')
