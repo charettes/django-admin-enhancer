@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from .. import admin as enhanced_admin
+from admin_enhancer import admin as enhanced_admin
 
 from .models import Author, Book, Character, Theme
 

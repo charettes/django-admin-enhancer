@@ -3,12 +3,15 @@ from __future__ import unicode_literals
 from contextlib import contextmanager
 import time
 
+from django.conf import settings
 from django.contrib.admin.tests import AdminSeleniumWebDriverTestCase
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 
 class InteractionTest(AdminSeleniumWebDriverTestCase):
+    available_apps = settings.INSTALLED_APPS
+
     def setUp(self):
         super(InteractionTest, self).setUp()
         User.objects.create_superuser('super', '', 'secret')
