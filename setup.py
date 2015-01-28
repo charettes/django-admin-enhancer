@@ -6,7 +6,7 @@ from setuptools import find_packages, setup
 from admin_enhancer import __version__
 
 
-with open('README.md') as file_:
+with open('README.rst') as file_:
     long_description = file_.read()
 
 setup(
