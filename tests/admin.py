@@ -1,19 +1,20 @@
 from __future__ import unicode_literals
 
-from django.contrib import admin
+from django.contrib.admin import AdminSite, ModelAdmin, TabularInline
 
 from admin_enhancer import admin as enhanced_admin
 
 from .models import Author, Book, Character, Theme
 
 
-class EnhancedModelAdmin(enhanced_admin.EnhancedModelAdminMixin,
-                         admin.ModelAdmin):
+site = AdminSite()
+
+
+class EnhancedModelAdmin(enhanced_admin.EnhancedModelAdminMixin, ModelAdmin):
     pass
 
 
-class CharacterInline(enhanced_admin.EnhancedAdminMixin,
-                      admin.TabularInline):
+class CharacterInline(enhanced_admin.EnhancedAdminMixin, TabularInline):
     model = Character
 
 
@@ -22,6 +23,6 @@ class BookAdmin(EnhancedModelAdmin):
     filter_horizontal = ('themes',)
 
 
-admin.site.register(Author, EnhancedModelAdmin)
-admin.site.register(Book, BookAdmin)
-admin.site.register(Theme, EnhancedModelAdmin)
+site.register(Author, EnhancedModelAdmin)
+site.register(Book, BookAdmin)
+site.register(Theme, EnhancedModelAdmin)
