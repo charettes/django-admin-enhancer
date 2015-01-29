@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 
-from django.contrib.admin.widgets import (
-    FilteredSelectMultiple, RelatedFieldWidgetWrapper
-)
+from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -16,10 +14,13 @@ class RelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
         }
         js = ('admin_enhancer/js/related-widget-wrapper.js',)
 
-    def __init__(self, *args, **kwargs):
-        self.can_change_related = kwargs.pop('can_change_related', None)
-        self.can_delete_related = kwargs.pop('can_delete_related', None)
-        super(RelatedFieldWidgetWrapper, self).__init__(*args, **kwargs)
+    def __init__(self, widget, *args, **kwargs):
+        multiple = getattr(widget, 'allow_multiple_selected', False)
+        can_change_related = kwargs.pop('can_change_related', None)
+        can_delete_related = kwargs.pop('can_delete_related', None)
+        super(RelatedFieldWidgetWrapper, self).__init__(widget, *args, **kwargs)
+        self.can_change_related = not multiple and can_change_related
+        self.can_delete_related = not multiple and can_delete_related
 
     @classmethod
     def wrap(cls, wrapper, can_change_related, can_delete_related):
@@ -77,13 +78,3 @@ class RelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
             )
 
         return mark_safe(render_to_string('admin_enhancer/related-widget-wrapper.html', context))
-
-
-class FilteredSelectMultipleWrapper(FilteredSelectMultiple):
-    @classmethod
-    def wrap(cls, widget):
-        return cls(widget.verbose_name, widget.is_stacked, widget.attrs, widget.choices)
-
-    def render(self, *args, **kwargs):
-        output = super(FilteredSelectMultipleWrapper, self).render(*args, **kwargs)
-        return mark_safe('<div class="related-widget-wrapper">%s</div>' % output)

@@ -3,10 +3,17 @@ from __future__ import unicode_literals
 from contextlib import contextmanager
 import time
 
+from django import forms
 from django.conf import settings
+from django.contrib.admin import site
 from django.contrib.admin.tests import AdminSeleniumWebDriverTestCase
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.test import SimpleTestCase
+
+from admin_enhancer import widgets
+
+from .models import Book
 
 
 class InteractionTest(AdminSeleniumWebDriverTestCase):
@@ -86,3 +93,18 @@ class InteractionTest(AdminSeleniumWebDriverTestCase):
 
         self.assertIsNone(edit_author_btn.get_attribute('href'))
         self.assertIsNone(delete_author_btn.get_attribute('href'))
+
+
+class RelatedFieldWidgetWrapperTests(SimpleTestCase):
+    def test_select_multiple_widget_cant_change_delete_related(self):
+        rel = Book._meta.get_field('themes').rel
+        widget = forms.SelectMultiple()
+        wrapper = widgets.RelatedFieldWidgetWrapper(
+            widget, rel, site,
+            can_add_related=True,
+            can_change_related=True,
+            can_delete_related=True,
+        )
+        self.assertTrue(wrapper.can_add_related)
+        self.assertFalse(wrapper.can_change_related)
+        self.assertFalse(wrapper.can_delete_related)
