@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 from django.core.urlresolvers import reverse
+from django.db.models import CASCADE
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -14,13 +15,14 @@ class RelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
         }
         js = ('admin_enhancer/js/related-widget-wrapper.js',)
 
-    def __init__(self, widget, *args, **kwargs):
+    def __init__(self, widget, rel, *args, **kwargs):
         multiple = getattr(widget, 'allow_multiple_selected', False)
+        cascade = getattr(rel, 'on_delete', None) is CASCADE
         can_change_related = kwargs.pop('can_change_related', None)
         can_delete_related = kwargs.pop('can_delete_related', None)
-        super(RelatedFieldWidgetWrapper, self).__init__(widget, *args, **kwargs)
+        super(RelatedFieldWidgetWrapper, self).__init__(widget, rel, *args, **kwargs)
         self.can_change_related = not multiple and can_change_related
-        self.can_delete_related = not multiple and can_delete_related
+        self.can_delete_related = not multiple and not cascade and can_delete_related
 
     @classmethod
     def wrap(cls, wrapper, can_change_related, can_delete_related):

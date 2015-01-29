@@ -24,7 +24,7 @@ class Collection(models.Model):
 
 
 class Book(models.Model):
-    author = models.ForeignKey(Author)
+    author = models.ForeignKey(Author, null=True, on_delete=models.SET_NULL)
     collection = models.ForeignKey(Collection, null=True, blank=True)
     themes = models.ManyToManyField('Theme')
 
