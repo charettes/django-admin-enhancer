@@ -42,7 +42,7 @@ django.jQuery(document).ready(function($){
         if (value) {
 	       siblings.each(function(){
 		      var elm = $(this);
-		      elm.attr('href', elm.attr(hrefTemplateAttr).replace('__pk__', value));
+		      elm.attr('href', elm.attr(hrefTemplateAttr).replace('__fk__', value));
 	       });
         } else siblings.removeAttr('href');
     });

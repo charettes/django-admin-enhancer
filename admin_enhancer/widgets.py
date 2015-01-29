@@ -55,7 +55,7 @@ class RelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
         if self.can_change_related:
             if value:
                 context['change_url'] = self.get_related_url(rel_to, info, 'change', [value])
-            template = self.get_related_url(rel_to, info, 'change', ['__pk__'])
+            template = self.get_related_url(rel_to, info, 'change', ['__fk__'])
             context.update(
                 change_url_template=template,
                 change_help_text=_('Change related model')
@@ -70,7 +70,7 @@ class RelatedFieldWidgetWrapper(RelatedFieldWidgetWrapper):
         if self.can_delete_related:
             if value:
                 context['delete_url'] = self.get_related_url(rel_to, info, 'delete', [value])
-            template = self.get_related_url(rel_to, info, 'delete', ['__pk__'])
+            template = self.get_related_url(rel_to, info, 'delete', ['__fk__'])
             context.update(
                 delete_url_template=template,
                 delete_help_text=_('Delete related model')
