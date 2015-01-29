@@ -36,11 +36,11 @@ class InteractionTest(AdminSeleniumWebDriverTestCase):
             trigger()
             self.wait_until(lambda driver: set(driver.window_handles) != window_handles)
             new_window_handle = (set(self.selenium.window_handles) - window_handles).pop()
-            self.selenium.switch_to_window(new_window_handle)
+            self.selenium.switch_to.window(new_window_handle)
             yield new_window_handle
         finally:
             time.sleep(1)
-            self.selenium.switch_to_window(initial_window_handle)
+            self.selenium.switch_to.window(initial_window_handle)
 
     def test_widget_interactions(self):
         self.admin_login('super', 'secret')
