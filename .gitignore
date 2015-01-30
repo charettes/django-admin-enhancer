@@ -10,3 +10,4 @@ dist/*
 django_admin_enhancer.egg-info/*
 .coverage
 .tox
+build/*
